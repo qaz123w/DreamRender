@@ -51,6 +51,12 @@ set(NLOHMANN_JSON_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/external/nlohmann_jso
 set(EMBREE_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/external/embree/include)
 set(EMBREE_LIB_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/external/embree/lib)
 
+# Add stb
+set(STB_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/external/stb)
+
+# Add tiny
+set(TINY_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/external/tiny)
+
 link_directories(
     ${EMBREE_LIB_DIRS}
 )
@@ -64,6 +70,8 @@ include_directories(
     ${FMT_INCLUDE_DIRS}
     ${NLOHMANN_JSON_INCLUDE_DIRS}
     ${EMBREE_INCLUDE_DIRS}
+    ${STB_INCLUDE_DIRS}
+    ${TINY_INCLUDE_DIRS}
 )
 
 add_executable(${PROJECT_NAME}
