@@ -25,8 +25,8 @@ add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/external/spdlog)
 
 # Add imgui
 set(IMGUI_INCLUDE_DIRS
-${CMAKE_CURRENT_SOURCE_DIR}/external/imgui
-${CMAKE_CURRENT_SOURCE_DIR}/external/imgui/backends
+    ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui
+    ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui/backends
 )
 set(IMGUI_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui/imgui.cpp
@@ -44,8 +44,8 @@ add_library(imgui ${IMGUI_SRCS})
 set(FMT_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/external/fmt/include)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/external/fmt)
 
-# Add nlohmann_json
-set(NLOHMANN_JSON_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/external/nlohmann_json/include)
+# Add nlohmann
+set(NLOHMANN_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/external/nlohmann/include)
 
 # Add embree
 set(EMBREE_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/external/embree/include)
@@ -68,7 +68,7 @@ include_directories(
     ${SPDLOG_INCLUDE_DIRS}
     ${IMGUI_INCLUDE_DIRS}
     ${FMT_INCLUDE_DIRS}
-    ${NLOHMANN_JSON_INCLUDE_DIRS}
+    ${NLOHMANN_INCLUDE_DIRS}
     ${EMBREE_INCLUDE_DIRS}
     ${STB_INCLUDE_DIRS}
     ${TINY_INCLUDE_DIRS}
