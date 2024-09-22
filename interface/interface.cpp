@@ -306,7 +306,7 @@ void Interface::Render() {
 		ImGui::Render();
 
 		glViewport(0, 0, display_w, display_h);
-		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
