@@ -5,6 +5,8 @@ project(dream LANGUAGES C CXX)
 # Find OpenGL
 find_package(OpenGL REQUIRED)
 
+set(ROOT_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR})
+
 # Add glad
 set(GLAD_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/external/spdlog/include)
 add_library(glad ${CMAKE_CURRENT_SOURCE_DIR}/external/glad/src/glad.c)
@@ -57,11 +59,16 @@ set(STB_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/external/stb)
 # Add tiny
 set(TINY_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/external/tiny)
 
+# Add gui
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/interface)
+set(INTERFACE_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/interface)
+
 link_directories(
     ${EMBREE_LIB_DIRS}
 )
 
 include_directories(
+    ${ROOT_INCLUDE_DIRS}
     ${GLAD_INCLUDE_DIRS}
     ${GLFW_INCLUDE_DIRS}
     ${GLM_INCLUDE_DIRS}
@@ -72,9 +79,11 @@ include_directories(
     ${EMBREE_INCLUDE_DIRS}
     ${STB_INCLUDE_DIRS}
     ${TINY_INCLUDE_DIRS}
+    ${INTERFACE_INCLUDE_DIRS}
 )
 
 add_executable(${PROJECT_NAME}
+    utils.h
     main.cpp
 )
 
@@ -86,4 +95,5 @@ target_link_libraries(${PROJECT_NAME}
     fmt
     embree3
     tbb
+    interface
 )
