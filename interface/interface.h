@@ -10,14 +10,14 @@ NAMESPACE_BEGIN(dream)
 
 class Interface {
 public:
-	Interface(float width = 2048.0f, float height = 1024.0f);
+	Interface(int width = 2048, int height = 1024);
 	~Interface();
 
 	void Render();
 
 protected:
 	void RegisterLogCallback();
-	void ConfigureAndSubmitDockspace();
+	void ConfigureAndSubmitDockspace(int display_w, int display_h);
 	void SelectableOptionFromFlag(const char* name, bool& flag);
 	void CreateMenuBar();
 	void ApplyDarkTheme();
@@ -25,8 +25,8 @@ protected:
 public:
 	GLFWwindow* window_;
 	std::unique_ptr<Console> console_;
-	float width_;
-	float height_;
+	int width_;
+	int height_;
 };
 
 NAMESPACE_END(dream)

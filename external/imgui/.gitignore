@@ -3,6 +3,7 @@
 
 ## Dear ImGui artifacts
 imgui.ini
+imgui*.ini
 
 ## General build artifacts
 *.o
@@ -40,8 +41,9 @@ examples/*.o.tmp
 examples/*.out.js
 examples/*.out.wasm
 examples/example_glfw_opengl3/web/*
+examples/example_glfw_wgpu/web/*
+examples/example_glfw_wgpu/external/*
 examples/example_sdl2_opengl3/web/*
-examples/example_emscripten_wgpu/web/*
 
 ## JetBrains IDE artifacts
 .idea

@@ -10,7 +10,7 @@
 
 NAMESPACE_BEGIN(dream)
 
-Interface::Interface(float width, float height): width_(width), height_(height) {
+Interface::Interface(int width, int height): width_(width), height_(height) {
 	spdlog::set_level(spdlog::level::trace);
 	// Bind console output to spdlog log callback
 	RegisterLogCallback();
@@ -42,16 +42,18 @@ Interface::Interface(float width, float height): width_(width), height_(height) 
 		exit(0);
 	}
 
+	IMGUI_CHECKVERSION();
 	ImGui::CreateContext();
-	ImGui::StyleColorsDark();
-	ImGui_ImplGlfw_InitForOpenGL(window_, true);
-	ImGui_ImplOpenGL3_Init("#version 330");
-	ImGui_ImplOpenGL3_NewFrame();
-	ImGui_ImplGlfw_NewFrame();
 
 	// Enable docking
 	ImGuiIO& io = ImGui::GetIO();
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
+	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
+
+	ImGui::StyleColorsDark();
+
+	ImGui_ImplGlfw_InitForOpenGL(window_, true);
+	ImGui_ImplOpenGL3_Init("#version 330");
 }
 
 Interface::~Interface() {
@@ -78,14 +80,14 @@ void Interface::RegisterLogCallback() {
 	spdlog::default_logger()->sinks().push_back(callback_sink);
 }
 
-void Interface::ConfigureAndSubmitDockspace() {
+void Interface::ConfigureAndSubmitDockspace(int display_w, int display_h) {
 	ImGuiIO& io = ImGui::GetIO();
 	static ImGuiDockNodeFlags dockspace_flags = ImGuiDockNodeFlags_PassthruCentralNode;
 
 	// Viewport resizing on window size change
 	ImGuiViewport* viewport = ImGui::GetMainViewport();
-	viewport->Size = { width_, height_ };
-	viewport->WorkSize = { width_, height_ };
+	viewport->Size = { (float)display_w, (float)display_h };
+	viewport->WorkSize = { (float)display_w, (float)display_h };
 	viewport->Flags |= (viewport->Flags & ImGuiViewportFlags_IsMinimized); // Preserve existing flags
 
 	// Set dockspace window position and size based on viewport
@@ -222,6 +224,13 @@ void Interface::ApplyDarkTheme() {
 	style.GrabRounding = scentRounding;
 	style.TabRounding = scentRounding;
 	style.LogSliderDeadzone = 4;
+
+	// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
+	ImGuiIO& io = ImGui::GetIO();
+	if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
+		style.WindowRounding = 0.0f;
+		style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+	}
 }
 
 void Interface::SelectableOptionFromFlag(const char* name, bool& flag) {
@@ -278,22 +287,39 @@ void Interface::CreateMenuBar() {
 
 void Interface::Render() {
 	while (!glfwWindowShouldClose(window_)) {
-		glClear(GL_COLOR_BUFFER_BIT);
+		glfwPollEvents();
+
+		int display_w, display_h;
+		glfwGetFramebufferSize(window_, &display_w, &display_h);
+
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 		ApplyDarkTheme();  // Set theme
 		// Will allow windows to be docked
-		ConfigureAndSubmitDockspace();
+		ConfigureAndSubmitDockspace(display_w, display_h);
 		CreateMenuBar();
 		static bool console_open = true;
 		console_->Draw("Console", &console_open);
 		ImGui::ShowDemoWindow(nullptr);
 		ImGui::EndFrame();
-
 		ImGui::Render();
+
+		glViewport(0, 0, display_w, display_h);
+		glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
+		ImGuiIO& io = ImGui::GetIO();
+		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable) {
+			GLFWwindow* backup_current_context = glfwGetCurrentContext();
+			ImGui::UpdatePlatformWindows();
+			ImGui::RenderPlatformWindowsDefault();
+			glfwMakeContextCurrent(backup_current_context);
+		}
+
 		glfwSwapBuffers(window_);
-		glfwPollEvents();
 	}
 }
 
