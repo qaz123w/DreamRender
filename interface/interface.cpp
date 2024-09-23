@@ -2,6 +2,7 @@
 #include <map>
 #include <vector>
 #include <string>
+#include <glm/glm.hpp>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 #include <spdlog/sinks/stdout_color_sinks.h>
@@ -286,6 +287,26 @@ void Interface::CreateMenuBar() {
 }
 
 void Interface::Render() {
+	GLuint texture = 0;
+	auto RenderImage = [&texture](int display_w, int display_h) {
+		ImGui::Begin("Rendering Window");
+
+		static std::vector<float> pixels(display_w * display_h * 4, 1.0f);
+		
+		if (0 == texture) {
+			glGenTextures(1, &texture);
+		}
+		glBindTexture(GL_TEXTURE_2D, texture);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, display_w, display_h, 0, GL_RGBA, GL_FLOAT, pixels.data());
+		ImGui::Image((void*)(intptr_t)texture, ImVec2(display_w, display_h), ImVec2(0, 1), ImVec2(1, 0));
+
+		ImGui::End();
+	};
+
 	while (!glfwWindowShouldClose(window_)) {
 		glfwPollEvents();
 
@@ -299,8 +320,12 @@ void Interface::Render() {
 		// Will allow windows to be docked
 		ConfigureAndSubmitDockspace(display_w, display_h);
 		CreateMenuBar();
+
 		static bool console_open = true;
 		console_->Draw("Console", &console_open);
+
+		RenderImage(display_w, display_h);
+
 		ImGui::ShowDemoWindow(nullptr);
 		ImGui::EndFrame();
 		ImGui::Render();

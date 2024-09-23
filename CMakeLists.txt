@@ -5,28 +5,28 @@ project(dream LANGUAGES C CXX)
 # Find OpenGL
 find_package(OpenGL REQUIRED)
 
-set(ROOT_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR})
+set(ROOT_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 
 # Add glad
-set(GLAD_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/external/spdlog/include)
+set(GLAD_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/spdlog/include)
 add_library(glad ${CMAKE_CURRENT_SOURCE_DIR}/external/glad/src/glad.c)
 
 # Add glfw
 set(GLFW_BUILD_EXAMPLES OFF)
 set(GLFW_BUILD_TESTS OFF)
 set(GLFW_INSTALL OFF)
-set(GLFW_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/external/glfw/include)
+set(GLFW_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/glfw/include)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/external/glfw)
 
 # Add glm
-set(GLM_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/external/glm/include)
+set(GLM_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/glm/include)
 
 # Add spdlog
-set(SPDLOG_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/external/spdlog/include)
+set(SPDLOG_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/spdlog/include)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/external/spdlog)
 
 # Add imgui
-set(IMGUI_INCLUDE_DIRS
+set(IMGUI_INCLUDE_DIR
     ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui
     ${CMAKE_CURRENT_SOURCE_DIR}/external/imgui/backends
 )
@@ -43,43 +43,43 @@ set(IMGUI_SRCS
 add_library(imgui ${IMGUI_SRCS})
 
 # Add fmt
-set(FMT_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/external/fmt/include)
+set(FMT_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/fmt/include)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/external/fmt)
 
 # Add nlohmann
-set(NLOHMANN_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/external/nlohmann/include)
+set(NLOHMANN_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/nlohmann/include)
 
 # Add embree
-set(EMBREE_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/external/embree/include)
-set(EMBREE_LIB_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/external/embree/lib)
+set(EMBREE_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/embree/include)
+set(EMBREE_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/embree/lib)
 
 # Add stb
-set(STB_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/external/stb)
+set(STB_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/stb)
 
 # Add tiny
-set(TINY_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/external/tiny)
+set(TINY_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/tiny)
 
 # Add gui
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/interface)
-set(INTERFACE_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/interface)
+set(INTERFACE_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/interface)
 
 link_directories(
-    ${EMBREE_LIB_DIRS}
+    ${EMBREE_LIB_DIR}
 )
 
 include_directories(
-    ${ROOT_INCLUDE_DIRS}
-    ${GLAD_INCLUDE_DIRS}
-    ${GLFW_INCLUDE_DIRS}
-    ${GLM_INCLUDE_DIRS}
-    ${SPDLOG_INCLUDE_DIRS}
-    ${IMGUI_INCLUDE_DIRS}
-    ${FMT_INCLUDE_DIRS}
-    ${NLOHMANN_INCLUDE_DIRS}
-    ${EMBREE_INCLUDE_DIRS}
-    ${STB_INCLUDE_DIRS}
-    ${TINY_INCLUDE_DIRS}
-    ${INTERFACE_INCLUDE_DIRS}
+    ${ROOT_INCLUDE_DIR}
+    ${GLAD_INCLUDE_DIR}
+    ${GLFW_INCLUDE_DIR}
+    ${GLM_INCLUDE_DIR}
+    ${SPDLOG_INCLUDE_DIR}
+    ${IMGUI_INCLUDE_DIR}
+    ${FMT_INCLUDE_DIR}
+    ${NLOHMANN_INCLUDE_DIR}
+    ${EMBREE_INCLUDE_DIR}
+    ${STB_INCLUDE_DIR}
+    ${TINY_INCLUDE_DIR}
+    ${INTERFACE_INCLUDE_DIR}
 )
 
 add_executable(${PROJECT_NAME}
