@@ -1,13 +1,4 @@
 #include <interface.h>
-#include <map>
-#include <vector>
-#include <string>
-#include <glm/glm.hpp>
-#include <imgui_impl_glfw.h>
-#include <imgui_impl_opengl3.h>
-#include <spdlog/sinks/stdout_color_sinks.h>
-#include <spdlog/sinks/callback_sink.h>
-#include <fmt/core.h>
 
 NAMESPACE_BEGIN(dream)
 

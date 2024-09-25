@@ -1,20 +1,8 @@
 #pragma once
 
-#define SPDLOG_ACTIVE_LEVEL SPDLOG_LEVEL_TRACE
-
-#include <cctype>
-#include <spdlog/spdlog.h>
-#include <imgui.h>
-#include <imgui_internal.h>
 #include <utils.h>
 
 NAMESPACE_BEGIN(dream)
-
-// Use default logger for now...
-#define DEBUG(...) SPDLOG_LOGGER_DEBUG(spdlog::default_logger(), __VA_ARGS__)
-#define INFO(...)  SPDLOG_LOGGER_INFO(spdlog::default_logger(), __VA_ARGS__)
-#define WARN(...)  SPDLOG_LOGGER_WARN(spdlog::default_logger(), __VA_ARGS__)
-#define ERROR(...) SPDLOG_LOGGER_ERROR(spdlog::default_logger(), __VA_ARGS__)
 
 class Console {
 public:
@@ -46,7 +34,6 @@ public:
 	ImGuiTextFilter filter_;
 	bool auto_scroll_;
 	bool scroll_to_bottom_;
-
 };
 
 NAMESPACE_END(dream)

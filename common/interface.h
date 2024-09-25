@@ -1,9 +1,5 @@
 #pragma once
 
-#include <glad/glad.h>
-#include <glfw/glfw3.h>
-#include <imgui.h>
-#include <utils.h>
 #include <console.h>
 
 NAMESPACE_BEGIN(dream)
