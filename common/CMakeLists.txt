@@ -1,6 +1,6 @@
-project(interface)
+project(common)
 
-set(INTERFACE_SRCS
+set(COMMON_SRCS
     ${CMAKE_CURRENT_SOURCE_DIR}/console.h
     ${CMAKE_CURRENT_SOURCE_DIR}/console.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/interface.h
@@ -18,7 +18,7 @@ include_directories(
     ${FMT_INCLUDE_DIR}
 )
 
-add_library(interface ${INTERFACE_SRCS})
+add_library(${PROJECT_NAME} ${COMMON_SRCS})
 
 target_link_libraries(${PROJECT_NAME}
     glad

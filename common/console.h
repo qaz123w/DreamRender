@@ -29,7 +29,7 @@ public:
 
 	void ClearLog();
 	void AddLog(const char* fmt, ...) IM_FMTARGS(2);
-	void Draw(const char* title, bool* p_open);
+	void Draw();
 	void ExecCommand(const char* command_line);
 
 	// In C++11 you'd be better off using lambdas for this sort of forwarding callbacks

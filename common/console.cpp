@@ -79,22 +79,12 @@ void Console::AddLog(const char* fmt, ...) IM_FMTARGS(2) {
 	items_.push_back(Strdup(buf));
 }
 
-void Console::Draw(const char* title, bool* p_open) {
+void Console::Draw() {
 	ImGui::SetNextWindowSize(ImVec2(520, 600), ImGuiCond_FirstUseEver);
-	if (!ImGui::Begin(title, p_open)) {
+	if (!ImGui::Begin("Console", nullptr, ImGuiWindowFlags_None)) {
 		ImGui::End();
 
 		return;
-	}
-
-	// As a specific feature guaranteed by the library, after calling Begin() the last Item represent the title bar.
-	// So e.g. IsItemHovered() will return true when hovering the title bar.
-	// Here we create a context menu only available from the title bar.
-	if (ImGui::BeginPopupContextItem()) {
-		if (ImGui::MenuItem("Close Console")) {
-			*p_open = false;
-		}
-		ImGui::EndPopup();
 	}
 
 	// Command-line

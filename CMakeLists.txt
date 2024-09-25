@@ -59,9 +59,9 @@ set(STB_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/stb)
 # Add tiny
 set(TINY_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/tiny)
 
-# Add gui
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/interface)
-set(INTERFACE_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/interface)
+# Add common utils
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/common)
+set(COMMON_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/common)
 
 link_directories(
     ${EMBREE_LIB_DIR}
@@ -79,7 +79,7 @@ include_directories(
     ${EMBREE_INCLUDE_DIR}
     ${STB_INCLUDE_DIR}
     ${TINY_INCLUDE_DIR}
-    ${INTERFACE_INCLUDE_DIR}
+    ${COMMON_INCLUDE_DIR}
 )
 
 add_executable(${PROJECT_NAME}
@@ -95,5 +95,5 @@ target_link_libraries(${PROJECT_NAME}
     fmt
     embree3
     tbb
-    interface
+    common
 )
