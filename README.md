@@ -30,7 +30,7 @@ My cpu offline renderer for learning. If I have time, I will keep refactoring th
   - Clearcoated Conductor
   - Diffuse Transmitter
   - Mixture
-  - Randow Walk Subsurface
+  - Random Walk Subsurface
 
 - Phase Function
   - Isotropic
